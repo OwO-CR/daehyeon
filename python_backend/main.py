@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Request, HTTPException
+from fastapi import FastAPI, Depends, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -98,12 +98,14 @@ def tweet(request: Request,
     user_id = request.headers.get('user_id')
 
     if len(tweet_content) > 300:
-        return HTTPException(400, detail='Cannot Over 300')
+        return JSONResponse(content={'message': 'Cannot Over 300'},
+                            status_code=400)
 
     content = tweet_service.insert_tweet(tweet_content, user_id, db)
 
     if content is None:
-        return HTTPException(400, detail='Unknown Error')
+        return JSONResponse(content={'message': 'Unknown Error'},
+                            status_code=400)
 
     return JSONResponse(content=content, status_code=200)
 
@@ -118,10 +120,12 @@ def follow(request: Request,
 
     for info in follow_info:
         if not user_service.get_user_by_id(info, db):
-            return HTTPException(400, detail='No User')
+            return JSONResponse(content={'message': 'No User'},
+                                status_code=400)
 
     if not user_service.insert_follow(follow_info[0], follow_info[1], db):
-        return HTTPException(400, detail='Already Following')
+        return JSONResponse(content={'message': 'Already Following'},
+                            status_code=400)
     else:
         return JSONResponse(content={'user_id': follow_info[0],
                                      'user_id_to_follow': follow_info[1]}, status_code=200)
@@ -136,7 +140,8 @@ def unfollow(request: Request,
     user_id_to_unfollow = user_unfollow.user_id_to_follow
 
     if not user_service.delete_follow(user_id, user_id_to_unfollow, db):
-        return HTTPException(400, detail='Invalid User')
+        return JSONResponse(content={'message': 'Invalid User'},
+                            status_code=400)
     else:
         return JSONResponse(content={'user_id': user_id,
                                      'user_id_to_unfollow': user_id_to_unfollow}, status_code=200)
@@ -149,4 +154,5 @@ def timeline(request: Request,
     user_id = request.headers.get('user_id')
     tweets = tweet_service.get_timeline(user_id, db)
     return JSONResponse(content=tweets, status_code=200) if tweets is not None \
-        else HTTPException(400, detail='No Contents')
+        else JSONResponse(content={'message': 'No Contents'},
+                          status_code=400)
