@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efabca02-6cf4-4512-b70b-e552250ddfc3" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python-tutorial-frontend" beforeDir="false" afterPath="$PROJECT_DIR$/python-tutorial-frontend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python-tutorial-frontend/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/python-tutorial-frontend/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python-tutorial-frontend/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/python-tutorial-frontend/signup.js" afterDir="false" />
